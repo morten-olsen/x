@@ -1,0 +1,54 @@
+{
+  "devDependencies": {
+    "@morten-olsen/x-blocks": "workspace:^",
+    "@morten-olsen/x-config": "workspace:^",
+    "@radix-ui/colors": "^0.1.8",
+    "@storybook/addon-essentials": "^7.0.18",
+    "@storybook/addon-interactions": "^7.0.18",
+    "@storybook/addon-links": "^7.0.18",
+    "@storybook/blocks": "^7.0.18",
+    "@storybook/react": "^7.0.18",
+    "@storybook/react-vite": "^7.0.18",
+    "@storybook/testing-library": "^0.0.14-next.2",
+    "@types/styled-components": "^5.1.26",
+    "@vitejs/plugin-react-swc": "^3.0.0",
+    "prop-types": "^15.8.1",
+    "react": ">=18.0.0",
+    "react-dom": "^18.2.0",
+    "storybook": "^7.0.18",
+    "typescript": "^5.0.4",
+    "vite": "^4.3.9"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
+    }
+  },
+  "files": [
+    "dist/**/*"
+  ],
+  "main": "./dist/cjs/index.js",
+  "name": "@morten-olsen/x-ui",
+  "scripts": {
+    "build": "pnpm build:esm && pnpm build:cjs",
+    "build:cjs": "tsc -p tsconfig.json",
+    "build:esm": "tsc -p tsconfig.esm.json",
+    "storybook": "storybook dev -p 6006 --no-open",
+    "build-storybook": "storybook build"
+  },
+  "types": "./dist/cjs/index.d.ts",
+  "dependencies": {
+    "@radix-ui/react-dialog": "^1.0.4",
+    "@radix-ui/react-dropdown-menu": "^2.0.5",
+    "@radix-ui/react-tabs": "^1.0.4",
+    "@types/react": "^18.2.8",
+    "classnames": "^2.3.2",
+    "react-icons": "^4.9.0",
+    "styled-components": "6.0.0-rc.3"
+  },
+  "peerDependencies": {
+    "@morten-olsen/x-blocks": "workspace:^",
+    "react": ">=18.0.0"
+  }
+}

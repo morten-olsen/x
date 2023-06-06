@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "outDir": "dist/cjs"
+  },
+  "extends": "@morten-olsen/x-config/cjs",
+  "include": [
+    "src/**/*"
+  ]
+}

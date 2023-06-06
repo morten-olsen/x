@@ -1,0 +1,35 @@
+{
+  "devDependencies": {
+    "@morten-olsen/x-config": "workspace:^",
+    "@types/react": "^18.2.8",
+    "typescript": "^5.0.4"
+  },
+  "exports": {
+    ".": {
+      "import": {
+        "default": "./dist/esm/index.js",
+        "types": "./dist/esm/types/index.d.ts"
+      },
+      "require": {
+        "default": "./dist/cjs/index.js",
+        "types": "./dist/cjs/types/index.d.ts"
+      }
+    }
+  },
+  "files": [
+    "dist/**/*"
+  ],
+  "main": "./dist/cjs/index.js",
+  "name": "@morten-olsen/x-plugin-text",
+  "scripts": {
+    "build": "pnpm build:esm && pnpm build:cjs",
+    "build:cjs": "tsc -p tsconfig.json",
+    "build:esm": "tsc -p tsconfig.esm.json"
+  },
+  "types": "./dist/cjs/types/index.d.ts",
+  "dependencies": {
+    "@morten-olsen/x-blocks": "workspace:^",
+    "@morten-olsen/x-ui": "workspace:^",
+    "react-textarea-autosize": "^8.4.1"
+  }
+}

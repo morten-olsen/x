@@ -1,0 +1,12 @@
+
+> @morten-olsen/x-plugin-code-playground@ build /Users/alice/work/incubator/x/plugins/code-playground
+> pnpm build:esm && pnpm build:cjs
+
+
+> @morten-olsen/x-plugin-code-playground@ build:esm /Users/alice/work/incubator/x/plugins/code-playground
+> tsc -p tsconfig.esm.json
+
+
+> @morten-olsen/x-plugin-code-playground@ build:cjs /Users/alice/work/incubator/x/plugins/code-playground
+> tsc -p tsconfig.json
+

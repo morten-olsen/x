@@ -1,0 +1,12 @@
+
+> @morten-olsen/x-blocks@ build /Users/alice/work/incubator/x/packages/blocks
+> pnpm build:esm && pnpm build:cjs
+
+
+> @morten-olsen/x-blocks@ build:esm /Users/alice/work/incubator/x/packages/blocks
+> tsc -p tsconfig.esm.json
+
+
+> @morten-olsen/x-blocks@ build:cjs /Users/alice/work/incubator/x/packages/blocks
+> tsc -p tsconfig.json
+

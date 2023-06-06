@@ -1,0 +1,12 @@
+
+> @morten-olsen/x-auth-github@ build /Users/alice/work/incubator/x/auth/github
+> pnpm build:esm && pnpm build:cjs
+
+
+> @morten-olsen/x-auth-github@ build:esm /Users/alice/work/incubator/x/auth/github
+> tsc -p tsconfig.esm.json
+
+
+> @morten-olsen/x-auth-github@ build:cjs /Users/alice/work/incubator/x/auth/github
+> tsc -p tsconfig.json
+

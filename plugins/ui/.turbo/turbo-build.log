@@ -1,0 +1,12 @@
+
+> @morten-olsen/x-plugin-ui@ build /Users/alice/work/incubator/x/plugins/ui
+> pnpm build:esm && pnpm build:cjs
+
+
+> @morten-olsen/x-plugin-ui@ build:esm /Users/alice/work/incubator/x/plugins/ui
+> tsc -p tsconfig.esm.json
+
+
+> @morten-olsen/x-plugin-ui@ build:cjs /Users/alice/work/incubator/x/plugins/ui
+> tsc -p tsconfig.json
+

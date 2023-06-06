@@ -1,0 +1,12 @@
+
+> @morten-olsen/x-plugin-github@ build /Users/alice/work/incubator/x/plugins/github
+> pnpm build:esm && pnpm build:cjs
+
+
+> @morten-olsen/x-plugin-github@ build:esm /Users/alice/work/incubator/x/plugins/github
+> tsc -p tsconfig.esm.json
+
+
+> @morten-olsen/x-plugin-github@ build:cjs /Users/alice/work/incubator/x/plugins/github
+> tsc -p tsconfig.json
+

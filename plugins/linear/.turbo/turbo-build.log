@@ -1,0 +1,12 @@
+
+> @morten-olsen/x-plugin-linear@ build /Users/alice/work/incubator/x/plugins/linear
+> pnpm build:esm && pnpm build:cjs
+
+
+> @morten-olsen/x-plugin-linear@ build:esm /Users/alice/work/incubator/x/plugins/linear
+> tsc -p tsconfig.esm.json
+
+
+> @morten-olsen/x-plugin-linear@ build:cjs /Users/alice/work/incubator/x/plugins/linear
+> tsc -p tsconfig.json
+

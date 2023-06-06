@@ -1,0 +1,12 @@
+
+> @morten-olsen/x-auth-linear@ build /Users/alice/work/incubator/x/auth/linear
+> pnpm build:esm && pnpm build:cjs
+
+
+> @morten-olsen/x-auth-linear@ build:esm /Users/alice/work/incubator/x/auth/linear
+> tsc -p tsconfig.esm.json
+
+
+> @morten-olsen/x-auth-linear@ build:cjs /Users/alice/work/incubator/x/auth/linear
+> tsc -p tsconfig.json
+
