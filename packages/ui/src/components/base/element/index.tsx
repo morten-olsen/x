@@ -51,7 +51,6 @@ const BaseElement = styled.div<{
     | 'space-evenly'
     | 'stretch';
 }>`
-  all: unset;
   margin-top: ${({ theme, $mt, $my, $m, $mm }) =>
     getSize(theme, [$mt, $my, $m], $mm)};
   margin-right: ${({ theme, $mr, $mx, $m, $mm }) =>

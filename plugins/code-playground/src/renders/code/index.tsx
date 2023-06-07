@@ -4,6 +4,7 @@ import {
   useBlockContent,
   useBlockRefStore,
   useBlocksStore,
+  useIsReadOnly,
 } from '@morten-olsen/x-blocks';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import theme from 'monaco-themes/themes/Dracula.json';
@@ -32,6 +33,7 @@ const EditorWrapper = styled.div`
 
 const CodeRender: React.FC = () => {
   const [value, setValue] = useBlockContent<CodeContent>();
+  const isReadOnly = useIsReadOnly();
   const ref = useRef<HTMLDivElement>(null);
   const [result, setResult] = useState<any>(null);
   const [editor, setEditor] = useState<any>(null);
@@ -111,6 +113,7 @@ const CodeRender: React.FC = () => {
             height="100%"
             width="100%"
             options={{
+              readOnly: isReadOnly,
               minimap: {
                 enabled: false,
               },

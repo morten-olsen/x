@@ -21,6 +21,9 @@ const styles = {
     font-size: 24px;
     font-weight: 500;
   `,
+  tiny: css`
+    font-size: 10px;
+  `,
 } satisfies Record<string, ReturnType<typeof css>>;
 
 type TypographyProps = {

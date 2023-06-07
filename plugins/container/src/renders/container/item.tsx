@@ -3,11 +3,17 @@ import {
   Render,
   useBlockChildren,
   useBlockId,
+  useIsReadOnly,
   useRender,
   withBlock,
 } from '@morten-olsen/x-blocks';
 import styled from 'styled-components';
-import { BaseElement, Dialog, DropdownMenu } from '@morten-olsen/x-ui';
+import {
+  BaseElement,
+  Dialog,
+  DropdownMenu,
+  Typography,
+} from '@morten-olsen/x-ui';
 import {
   FiMoreHorizontal,
   FiArrowDown,
@@ -24,21 +30,36 @@ type Props = {
 
 const Actions = styled(BaseElement)<{ $visible?: boolean }>`
   opacity: 0;
-  space-between: ${({ theme }) => `${theme.space.sm}${theme.units.space}`};
+  gap: ${({ theme }) => `${theme.space.sm}${theme.units.space}`};
   ${({ $visible, theme }) =>
     $visible &&
     `
       opacity: 1;
       background: ${theme.colors.bg.highlight100};
       `}
+
+  svg {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+
+    &:hover {
+      color: ${({ theme }) => theme.colors.bg.highlight};
+      transform: scale(1.1);
+    }
+  }
 `;
 
-const Wrapper = styled(BaseElement)`
+const Wrapper = styled(BaseElement)<{ $readonly?: boolean }>`
   border-radius: 5px;
   overflow: hidden;
+  ${({ theme, $readonly }) =>
+    $readonly &&
+    `
   &:hover {
-    box-shadow: 0 0 0 1px ${({ theme }) => theme.colors.bg.highlight100};
+    box-shadow: 0 0 0 1px ${theme.colors.bg.highlight100};
   }
+  `}
 `;
 
 const RenderActions = withBlock(() => {
@@ -54,6 +75,7 @@ const RenderActions = withBlock(() => {
 });
 
 const Item: React.FC<Props> = ({ id, remove }) => {
+  const isReadOnly = useIsReadOnly();
   const [menuOpen, setMenuOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
   const [hover, setHover] = useState(false);
@@ -87,7 +109,11 @@ const Item: React.FC<Props> = ({ id, remove }) => {
     >
       <BaseElement $f={1} $p="sm">
         <Render id={id} />
-        {id.id}
+        {!isReadOnly && (
+          <Typography variant="tiny">
+            {id.id}:{id.plugin}
+          </Typography>
+        )}
       </BaseElement>
       {editOpen && (
         <Dialog open={editOpen} onOpenChange={setEditOpen}>
@@ -100,31 +126,33 @@ const Item: React.FC<Props> = ({ id, remove }) => {
           </Dialog.Portal>
         </Dialog>
       )}
-      <Actions $visible={hover || menuOpen} $fc $p="md">
-        <FiArrowUp onClick={() => move(-1)} />
-        <RenderActions id={id} />
-        <DropdownMenu onOpenChange={setMenuOpen} open={menuOpen}>
-          <DropdownMenu.Trigger>
-            <FiMoreHorizontal />
-          </DropdownMenu.Trigger>
-          <DropdownMenu.Content>
-            <DropdownMenu.Item onClick={() => setEditOpen(true)}>
-              <DropdownMenu.Icon>
-                <FiEdit2 />
-              </DropdownMenu.Icon>
-              Edit
-            </DropdownMenu.Item>
-            <DropdownMenu.Item onClick={remove}>
-              <DropdownMenu.Icon>
-                <FiTrash />
-              </DropdownMenu.Icon>
-              Remove
-            </DropdownMenu.Item>
-            <DropdownMenu.Arrow />
-          </DropdownMenu.Content>
-        </DropdownMenu>
-        <FiArrowDown onClick={() => move(1)} />
-      </Actions>
+      {!isReadOnly && (
+        <Actions $visible={hover || menuOpen} $fc $p="md">
+          <FiArrowUp onClick={() => move(-1)} />
+          <RenderActions id={id} />
+          <DropdownMenu onOpenChange={setMenuOpen} open={menuOpen}>
+            <DropdownMenu.Trigger>
+              <FiMoreHorizontal />
+            </DropdownMenu.Trigger>
+            <DropdownMenu.Content>
+              <DropdownMenu.Item onClick={() => setEditOpen(true)}>
+                <DropdownMenu.Icon>
+                  <FiEdit2 />
+                </DropdownMenu.Icon>
+                Edit
+              </DropdownMenu.Item>
+              <DropdownMenu.Item onClick={remove}>
+                <DropdownMenu.Icon>
+                  <FiTrash />
+                </DropdownMenu.Icon>
+                Remove
+              </DropdownMenu.Item>
+              <DropdownMenu.Arrow />
+            </DropdownMenu.Content>
+          </DropdownMenu>
+          <FiArrowDown onClick={() => move(1)} />
+        </Actions>
+      )}
     </Wrapper>
   );
 };

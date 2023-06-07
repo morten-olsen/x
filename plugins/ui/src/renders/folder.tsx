@@ -102,6 +102,7 @@ const Folder: React.FC = () => {
       onMouseLeave={() => setIsHover(false)}
     >
       <Row
+        onPress={isHover ? () => {} : undefined}
         left={<Row.Cell>{render.icon}</Row.Cell>}
         right={
           <ActionCell $hover={isHover || isDropOpen}>

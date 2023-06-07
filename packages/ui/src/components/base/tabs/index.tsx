@@ -13,6 +13,7 @@ const List = styled(TabsPrimities.List)`
   display: flex;
   border-bottom: 1px solid var(--mauve6);
   overflow-x: auto;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.bg.base100};
 `;
 
 const Trigger = styled(TabsPrimities.Trigger)`
@@ -27,6 +28,7 @@ const Trigger = styled(TabsPrimities.Trigger)`
   font-size: 15px;
   line-height: 1;
   user-select: none;
+  border-right: 1px solid ${({ theme }) => theme.colors.bg.base100};
 
   &:hover {
     color: ${({ theme }) => theme.colors.bg.highlight};

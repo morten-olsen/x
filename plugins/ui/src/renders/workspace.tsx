@@ -6,10 +6,15 @@ import {
   withBlock,
   useEvents,
   useBlockContent,
+  useRender,
+  useBlockId,
 } from '@morten-olsen/x-blocks';
+import { HiOutlineEye } from 'react-icons/hi';
+import { FiEdit3 } from 'react-icons/fi';
+
 import styled from 'styled-components';
-import { Tabs, Typography } from '@morten-olsen/x-ui';
-import { useCallback, useEffect, useState } from 'react';
+import { BaseElement, Row, Tabs, Typography } from '@morten-olsen/x-ui';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 type WorkspaceContent = {
   selected?: string;
@@ -24,9 +29,25 @@ const ItemWrapper = styled.div`
   margin: 0 auto;
 `;
 
+const HeaderInput = styled(Typography)`
+  all: unset;
+`;
+
 type HeaderProps = {
   close: () => void;
 };
+
+const RenderActions = withBlock(() => {
+  const render = useRender();
+  const id = useBlockId();
+
+  const hasTools = useMemo(() => 'tools' in render.views, [render]);
+
+  if (!hasTools) {
+    return null;
+  }
+  return <Render id={id} view="tools" />;
+});
 
 const Header = withBlock<HeaderProps>(({ close }) => {
   const [name, setName] = useBlockName();
@@ -34,7 +55,7 @@ const Header = withBlock<HeaderProps>(({ close }) => {
   return (
     <>
       <HeaderWrapper>
-        <Typography
+        <HeaderInput
           as="input"
           value={name || ''}
           onChange={(e) => setName(e.target.value)}
@@ -46,13 +67,48 @@ const Header = withBlock<HeaderProps>(({ close }) => {
   );
 });
 
+const ActionWrapper = styled(BaseElement)`
+  display: flex;
+  gap: ${({ theme }) => `${theme.space.sm}${theme.units.space}`};
+  padding: ${({ theme }) => `${theme.space.sm}${theme.units.space}`};
+  margin-bottom: ${({ theme }) => `${theme.space.sm}${theme.units.space}`};
+  border-radius: 5px;
+  background: ${({ theme }) => theme.colors.bg.base100};
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+
+    &:hover {
+      color: ${({ theme }) => theme.colors.bg.highlight};
+      transform: scale(1.1);
+    }
+  }
+`;
+
+const Toolbar = styled(BaseElement)`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+`;
+
 const Item: React.FC<{ id: BlockRef }> = ({ id }) => {
   const [readOnly, setReadOnly] = useState(false);
   return (
     <ItemWrapper>
-      <button onClick={() => setReadOnly(!readOnly)}>
-        {readOnly ? 'Edit' : 'View'}
-      </button>
+      <Toolbar>
+        <ActionWrapper>
+          {!readOnly && <RenderActions id={id} />}
+          {readOnly ? (
+            <FiEdit3 onClick={() => setReadOnly(false)} />
+          ) : (
+            <HiOutlineEye onClick={() => setReadOnly(true)} />
+          )}
+        </ActionWrapper>
+      </Toolbar>
       <Render id={id} readOnly={readOnly} />
     </ItemWrapper>
   );
@@ -82,7 +138,7 @@ const Workspace: React.FC = () => {
       }
       setSelected(idToString(block));
     },
-    [setChildren, children],
+    [setChildren, children, setSelected],
   );
 
   useEffect(() => {

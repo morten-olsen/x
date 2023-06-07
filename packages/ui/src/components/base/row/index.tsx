@@ -8,6 +8,7 @@ type RowProps = {
   title?: React.ReactNode;
   description?: React.ReactNode;
   children?: React.ReactNode;
+  className?: string;
   onPress?: () => void;
 };
 
@@ -18,15 +19,19 @@ const Cell = styled(BaseElement)`
   justify-content: center;
 `;
 
-const Wrapper = styled(BaseElement)`
+const Wrapper = styled(BaseElement)<{ $onpress?: boolean }>`
   flex: 1;
   justify-content: flex-start;
   cursor: default;
 
+  ${({ $onpress, theme }) =>
+    $onpress &&
+    `
   &:hover {
-    background-color: ${({ theme }) => theme.colors.bg.highlight100};
-    color: ${({ theme }) => theme.colors.text.highlight};
+    background-color: ${theme.colors.bg.highlight100};
+    color: ${theme.colors.text.highlight};
   }
+  `}
 `;
 
 const Content = styled(BaseElement)`
@@ -45,14 +50,22 @@ const Root: React.FC<RowProps> = ({
   title,
   description,
   children,
+  className,
   onPress,
 }) => {
   return (
-    <Wrapper onClick={onPress} $px="sm" $pm={0.5} $fr>
+    <Wrapper
+      className={className}
+      onClick={onPress}
+      $onpress={!!onPress}
+      $px="sm"
+      $pm={0.5}
+      $fr
+    >
       {left}
       <Content $fc>
-        <Title>{title}</Title>
-        <Description>{description}</Description>
+        {title && <Title>{title}</Title>}
+        {description && <Description>{description}</Description>}
         {children}
       </Content>
       {right}

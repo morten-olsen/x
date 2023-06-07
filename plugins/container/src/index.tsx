@@ -1,6 +1,7 @@
 import { Plugin } from '@morten-olsen/x-blocks';
 import { Container } from './renders/container';
 import { IoLayersOutline } from 'react-icons/io5';
+import { ContainerTools } from './renders/container/tools';
 
 const plugin = {
   name: 'Container',
@@ -11,6 +12,7 @@ const plugin = {
       icon: <IoLayersOutline />,
       views: {
         default: Container,
+        tools: ContainerTools,
       },
     },
   },
