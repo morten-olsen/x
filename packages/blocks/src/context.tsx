@@ -6,6 +6,7 @@ import { BlockRelationsProvider } from './block-relations';
 import { ApiProvider } from './api';
 import { AuthClient, AuthProvider } from './auth';
 import { BlockRefProvider } from './block-ref';
+import { NotificationsProvider } from './notifications';
 
 type XProviderProps = {
   children: React.ReactNode;
@@ -25,15 +26,17 @@ const XProvider: React.FC<XProviderProps> = ({
 }) => (
   <DatabaseProvider database={database}>
     <BlockRefProvider>
-      <AuthProvider clients={auth.clients} render={auth.render}>
-        <PluginsProvider plugins={plugins}>
+      <NotificationsProvider>
+        <AuthProvider clients={auth.clients} render={auth.render}>
           <BlockRelationsProvider>
             <BlocksProvider>
-              <ApiProvider>{children}</ApiProvider>
+              <PluginsProvider plugins={plugins}>
+                <ApiProvider>{children}</ApiProvider>
+              </PluginsProvider>
             </BlocksProvider>
           </BlockRelationsProvider>
-        </PluginsProvider>
-      </AuthProvider>
+        </AuthProvider>
+      </NotificationsProvider>
     </BlockRefProvider>
   </DatabaseProvider>
 );

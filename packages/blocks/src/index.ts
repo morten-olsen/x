@@ -40,3 +40,9 @@ export { Render, useIsReadOnly, useRenderParentId, useRender } from './render';
 export { XProvider } from './context';
 export { useAuth, AuthClient, AuthLoginComponent } from './auth';
 export { Root } from './root';
+export {
+  useAddNotification,
+  useNotifications,
+  useMarkNotificationsAsRead,
+  useAllNotifications,
+} from './notifications';

@@ -12,6 +12,8 @@ import {
   useBlockName,
   useBlockType,
   useGetBlockOrCreate,
+  useMarkNotificationsAsRead,
+  useNotifications,
   useOpen,
   useRender,
   withBlock,
@@ -49,10 +51,30 @@ const Item = withBlock<ItemProps>(({ remove }) => {
   const [name] = useBlockName();
   const render = useRender();
   const open = useOpen();
+  const notifications = useNotifications();
+  const markAsRead = useMarkNotificationsAsRead();
 
   if (type === 'folder' && id.plugin === 'ui') {
     return <Folder />;
   }
+
+  const Notification = styled.div`
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    background: red;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 10px;
+  `;
+
+  const RelativeCell = styled(Row.Cell)`
+    position: relative;
+  `;
 
   return (
     <Wrapper
@@ -61,9 +83,17 @@ const Item = withBlock<ItemProps>(({ remove }) => {
     >
       <Row
         onPress={() => {
+          markAsRead(id);
           open(id);
         }}
-        left={<Row.Cell>{render.icon}</Row.Cell>}
+        left={
+          <RelativeCell>
+            {render.icon}
+            {notifications.length > 0 && (
+              <Notification>{notifications.length}</Notification>
+            )}
+          </RelativeCell>
+        }
         right={
           <ActionCell $hover={isHover}>
             <Row.Cell>

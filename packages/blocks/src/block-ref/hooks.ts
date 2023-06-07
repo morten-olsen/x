@@ -18,4 +18,12 @@ const useBlockRef = (data: BlockRefData) => {
   return context.store.get(data);
 };
 
-export { useBlockRef, useBlockRefStore };
+const useGetBlockRef = () => {
+  const context = useContext(BlockRefContext);
+  if (!context) {
+    throw new Error('Missing BlockRefContext');
+  }
+  return context.store.get;
+};
+
+export { useBlockRef, useBlockRefStore, useGetBlockRef };
