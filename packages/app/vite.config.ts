@@ -14,6 +14,8 @@ export default defineConfig({
     alias: {
       fetch: 'isomorphic-fetch',
       stream: 'stream-browserify',
+      path: 'path-browserify',
+      os: 'os-browserify',
     },
   },
   define: {

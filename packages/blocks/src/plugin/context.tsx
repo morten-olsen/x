@@ -18,14 +18,16 @@ const PluginProvider: React.FC<PluginProviderProps> = ({ id, children }) => {
     return plugins.find((currentPlugin) => currentPlugin.id === id);
   }, [id, plugins]);
 
-  if (!plugin) {
-    throw new Error(`Plugin ${id} not found`);
-  }
-
   const value = useMemo(() => ({ plugin }), [plugin]);
 
+  if (!value.plugin) {
+    return null;
+  }
+
   return (
-    <PluginContext.Provider value={value}>{children}</PluginContext.Provider>
+    <PluginContext.Provider value={value as any}>
+      {children}
+    </PluginContext.Provider>
   );
 };
 

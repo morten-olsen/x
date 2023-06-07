@@ -8,20 +8,22 @@ import ui from '@morten-olsen/x-plugin-ui';
 import github from '@morten-olsen/x-plugin-github';
 import { playground } from '@morten-olsen/x-plugin-code-playground';
 import linear from '@morten-olsen/x-plugin-linear';
+import slack from '@morten-olsen/x-plugin-slack';
 
 import { githubAuth } from '@morten-olsen/x-auth-github';
 import { linearAuth } from '@morten-olsen/x-auth-linear';
+import { slackAuth } from '@morten-olsen/x-auth-slack';
 import { Login } from './components/login';
 
 const App: React.FC = () => {
   const database = useMemo(() => new MemoryDB(), []);
   const plugins = useMemo(
-    () => [text, container, ui, playground, github, linear],
+    () => [text, container, ui, playground, github, linear, slack],
     [],
   );
   const auth = useMemo(
     () => ({
-      clients: [githubAuth, linearAuth],
+      clients: [githubAuth, linearAuth, slackAuth],
       render: Login,
     }),
     [],

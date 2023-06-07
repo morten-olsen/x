@@ -1,0 +1,12 @@
+
+> @morten-olsen/x-auth-slack@ build /Users/alice/work/incubator/x/auth/slack
+> pnpm build:esm && pnpm build:cjs
+
+
+> @morten-olsen/x-auth-slack@ build:esm /Users/alice/work/incubator/x/auth/slack
+> tsc -p tsconfig.esm.json
+
+
+> @morten-olsen/x-auth-slack@ build:cjs /Users/alice/work/incubator/x/auth/slack
+> tsc -p tsconfig.json
+
