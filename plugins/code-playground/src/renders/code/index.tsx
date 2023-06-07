@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import MonacoEditor from '@monaco-editor/react';
 import {
   useBlockContent,
+  useBlockId,
   useBlockRefStore,
   useBlocksStore,
 } from '@morten-olsen/x-blocks';
@@ -9,6 +10,11 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import theme from 'monaco-themes/themes/Dracula.json';
 import { run } from '../../runtime';
 import { Output } from './output';
+import { TypingsStore } from '../../typings/store';
+
+const store = new TypingsStore();
+store.add('@types/react');
+store.add('react');
 
 type CodeContent = {
   language: string;
@@ -33,6 +39,7 @@ const EditorWrapper = styled.div`
 const CodeRender: React.FC = () => {
   const [value, setValue] = useBlockContent<CodeContent>();
   const ref = useRef<HTMLDivElement>(null);
+  const id = useBlockId();
   const [result, setResult] = useState<any>(null);
   const [editor, setEditor] = useState<any>(null);
   const blocksStore = useBlocksStore();
@@ -86,16 +93,18 @@ const CodeRender: React.FC = () => {
         <EditorWrapper>
           <MonacoEditor
             value={value.code || ''}
+            path={`file:///${id.id}.tsx`}
             onChange={(nextValue) => setValue({ code: nextValue })}
             beforeMount={(monaco) => {
               monaco.editor.defineTheme('theme', theme as any);
+              store.attachEditor(monaco.languages);
               monaco.languages.typescript.typescriptDefaults.setCompilerOptions(
                 {
-                  target: monaco.languages.typescript.ScriptTarget.ESNext,
+                  target: monaco.languages.typescript.ScriptTarget.ES2018,
                   allowNonTsExtensions: true,
                   moduleResolution:
                     monaco.languages.typescript.ModuleResolutionKind.NodeJs,
-                  module: monaco.languages.typescript.ModuleKind.CommonJS,
+                  module: monaco.languages.typescript.ModuleKind.ESNext,
                   noEmit: true,
                   jsx: monaco.languages.typescript.JsxEmit.ReactJSX,
                   esModuleInterop: true,
