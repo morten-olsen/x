@@ -5,23 +5,12 @@ import {
   AttachBlockDialog,
 } from '@morten-olsen/x-ui';
 import { FiPlusCircle } from 'react-icons/fi';
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 
 const ContainerTools: React.FC = () => {
-  const getOrCreate = useGetBlockOrCreate();
   const [isAdding, setIsAdding] = useState(false);
   const [isAttaching, setIsAttaching] = useState(false);
 
-  const create = useCallback(
-    (type: string, plugin: Plugin) => {
-      getOrCreate({
-        type,
-        plugin: plugin.id,
-        content: {},
-      });
-    },
-    [getOrCreate],
-  );
   return (
     <>
       <DropdownMenu>
@@ -38,11 +27,7 @@ const ContainerTools: React.FC = () => {
           <DropdownMenu.Arrow />
         </DropdownMenu.Content>
       </DropdownMenu>
-      <AddBlockDialog
-        open={isAdding}
-        onOpenChange={setIsAdding}
-        onSelect={create}
-      />
+      <AddBlockDialog open={isAdding} onOpenChange={setIsAdding} />
       <AttachBlockDialog open={isAttaching} onOpenChange={setIsAttaching} />
     </>
   );

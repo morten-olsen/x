@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
-import { MemoryDB, XProvider, Root } from '@morten-olsen/x-blocks';
+import { XProvider, Root } from '@morten-olsen/x-blocks';
 import { UIProvider } from '@morten-olsen/x-ui';
+import { IndexedDBDatabase } from '@morten-olsen/x-db-indexeddb';
 
 import text from '@morten-olsen/x-plugin-text';
 import container from '@morten-olsen/x-plugin-container';
@@ -16,7 +17,7 @@ import { slackAuth } from '@morten-olsen/x-auth-slack';
 import { Login } from './components/login';
 
 const App: React.FC = () => {
-  const database = useMemo(() => new MemoryDB(), []);
+  const database = useMemo(() => new IndexedDBDatabase(), []);
   const plugins = useMemo(
     () => [text, container, ui, playground, github, linear, slack],
     [],

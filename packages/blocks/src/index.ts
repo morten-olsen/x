@@ -3,6 +3,7 @@ export {
   MemoryDB,
   useDatabase,
   useFindBlocks,
+  type FindBlocksOptions,
 } from './database';
 export {
   useBlockRef,

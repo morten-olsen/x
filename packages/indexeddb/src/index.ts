@@ -1,0 +1,1 @@
+export { IndexedDBDatabase } from './db';

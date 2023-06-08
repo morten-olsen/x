@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "declarationDir": "./dist/esm/types",
+    "outDir": "dist/esm"
+  },
+  "extends": "@morten-olsen/x-config/esm",
+  "include": [
+    "src/**/*"
+  ]
+}
