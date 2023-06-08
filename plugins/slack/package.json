@@ -29,6 +29,7 @@
   "types": "./dist/cjs/types/index.d.ts",
   "dependencies": {
     "@morten-olsen/x-blocks": "workspace:^",
-    "@morten-olsen/x-ui": "workspace:^"
+    "@morten-olsen/x-ui": "workspace:^",
+    "fuse.js": "^6.6.2"
   }
 }

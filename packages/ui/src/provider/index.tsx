@@ -9,6 +9,7 @@ const GlobalStyle = createGlobalStyle`
 
   * {
     box-sizing: border-box;
+    overflow-wrap: break-word;
   }
 
   button {
@@ -16,14 +17,16 @@ const GlobalStyle = createGlobalStyle`
     cursor: pointer;
   }
 
+  html, body {
+    height: 100%;
+    overscroll-behavior: none;
+  }
+
   body {
     background-color: ${({ theme }) => theme.colors.bg.base};
     color: ${({ theme }) => theme.colors.text.base};
     margin: 0;
     padding: 0;
-    font-family: ${({ theme }) => theme.fonts.body};
-    font-size: ${({ theme }) => theme.fontSizes.base};
-    line-height: ${({ theme }) => theme.lineHeights.base};
     ${styles.body}
   }
 `;

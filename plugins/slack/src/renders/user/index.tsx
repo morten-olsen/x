@@ -23,9 +23,7 @@ const Avatar = styled.img`
   border-radius: 50%;
 `;
 
-const Wrapper = styled(BaseElement)`
-  width: 200px;
-`;
+const Wrapper = styled(BaseElement)``;
 
 const UserRender = withAuth(() => {
   const id = useBlockId();
@@ -61,13 +59,23 @@ const UserRender = withAuth(() => {
   }
 
   return (
-    <Wrapper $fc $items="center" $justify="center" onClick={() => open(id)}>
+    <Wrapper
+      $fr
+      $items="center"
+      $justify="center"
+      onClick={() => open(id)}
+      $gap="md"
+    >
       <Avatar src={value.user?.user?.profile?.image_192} alt="avatar" />
-      <Typography>
-        {value.user?.user?.real_name || value.user?.user?.name}{' '}
-        <IoMdRefreshCircle onClick={update} />
-      </Typography>
-      <Typography variant="tiny">{value.user?.user?.profile?.title}</Typography>
+      <BaseElement $f={1}>
+        <Typography>
+          {value.user?.user?.real_name || value.user?.user?.name}{' '}
+          <IoMdRefreshCircle onClick={update} />
+        </Typography>
+        <Typography variant="tiny">
+          {value.user?.user?.profile?.title}
+        </Typography>
+      </BaseElement>
     </Wrapper>
   );
 });

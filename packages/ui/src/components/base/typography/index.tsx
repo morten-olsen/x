@@ -8,6 +8,11 @@ const styles = {
   `,
   body: css`
     font-size: 14px;
+    font-family: ${({ theme }) => theme.fonts.body};
+    font-size: ${({ theme }) => theme.fontSizes.base};
+    line-height: ${({ theme }) => theme.lineHeights.base};
+    font-size: 16px;
+    overflow-wrap: break-word;
   `,
   title: css`
     font-size: 14px;

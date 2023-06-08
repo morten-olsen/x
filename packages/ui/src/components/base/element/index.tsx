@@ -2,6 +2,8 @@ import { styled } from 'styled-components';
 import { Theme } from '../../../theme';
 
 type SizeKey = keyof Theme['space'];
+type BgKey = keyof Theme['colors']['bg'];
+type ColorKey = keyof Theme['colors']['text'];
 
 const getSize = (
   theme: Theme,
@@ -21,6 +23,8 @@ const getSize = (
 };
 
 const BaseElement = styled.div<{
+  $br?: boolean;
+  $bg?: BgKey;
   $m?: SizeKey;
   $mt?: SizeKey;
   $mr?: SizeKey;
@@ -29,6 +33,7 @@ const BaseElement = styled.div<{
   $mx?: SizeKey;
   $my?: SizeKey;
   $mm?: number;
+  $c?: ColorKey;
   $p?: SizeKey;
   $pt?: SizeKey;
   $pr?: SizeKey;
@@ -39,6 +44,8 @@ const BaseElement = styled.div<{
   $pm?: number;
   $fr?: boolean;
   $fc?: boolean;
+  $u?: boolean;
+  $gap?: SizeKey;
   $flexWrap?: boolean;
   $f?: number;
   $items?: 'center' | 'flex-start' | 'flex-end' | 'stretch' | 'baseline';
@@ -51,6 +58,12 @@ const BaseElement = styled.div<{
     | 'space-evenly'
     | 'stretch';
 }>`
+  ${({ $u }) => $u && 'all: unset;'}
+  ${({ $br }) => $br && 'border-radius: 5px;'}
+  ${({ $gap, theme }) =>
+    $gap && `gap: ${theme.space[$gap]}${theme.units.space};`}
+  ${({ $c, theme }) => $c && `color: ${theme.colors.text[$c]};`}
+  ${({ $bg, theme }) => $bg && `background-color: ${theme.colors.bg[$bg]};`}
   margin-top: ${({ theme, $mt, $my, $m, $mm }) =>
     getSize(theme, [$mt, $my, $m], $mm)};
   margin-right: ${({ theme, $mr, $mx, $m, $mm }) =>

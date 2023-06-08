@@ -1,4 +1,4 @@
-import { BaseElement, Row, Typography } from '@morten-olsen/x-ui';
+import { BaseElement, Typography } from '@morten-olsen/x-ui';
 import { withAuth } from '../../context';
 import { useFetchAction } from '../../hooks';
 import {
@@ -10,6 +10,7 @@ import {
 import { ChannelEditor } from './editor';
 import { useCallback, useEffect } from 'react';
 import { IoMdRefreshCircle } from 'react-icons/io';
+import { SlackRichText } from '../../components/slack-block';
 
 // https://api.slack.com/methods
 
@@ -94,6 +95,8 @@ const ChannelRender = withAuth(() => {
     return <div>Loading...</div>;
   }
 
+  console.log(value);
+
   return (
     <BaseElement>
       <h1>
@@ -104,36 +107,69 @@ const ChannelRender = withAuth(() => {
       </Typography>
       {value.history?.messages?.map((message: any) => (
         <BaseElement key={message.ts} $p="sm">
-          <Row
-            left={
-              message.user && (
-                <Root
-                  block={{
-                    id: `slack-user-${message.user || message.bot_id}`,
-                    plugin: 'slack',
-                    type: 'user',
-                    content: {
-                      id: message.user || message.bot_id,
-                    },
-                  }}
-                />
-              )
-            }
-          >
-            <Typography>{message.text}</Typography>
-            <BaseElement>
-              {message.reactions?.map((reaction: any) => (
-                <BaseElement key={reaction.name}>
-                  {reaction.name} ({reaction.count})
+          <BaseElement>
+            <Typography $bg="base100" $p="md" $br $mb="sm">
+              {message.files && message.files.length > 0 && (
+                <BaseElement $mb="sm">
+                  {message.files.map((file: any) => (
+                    <BaseElement key={file.id}>
+                      <a href={file.url_private_download}>
+                        <img src={file.thumb_360} />
+                        {file.name} ({file.size})
+                      </a>
+                    </BaseElement>
+                  ))}
                 </BaseElement>
-              ))}
-            </BaseElement>
-            {message.reply_count > 0 && (
-              <BaseElement onClick={() => openThread(message.thread_ts)}>
-                {message.reply_count} replies ({message.reply_users.join(', ')})
+              )}
+              {message.blocks && message.blocks.length > 0 ? (
+                <>
+                  {message.blocks.map((block: any, index: number) => (
+                    <SlackRichText key={index} block={block} />
+                  ))}
+                </>
+              ) : (
+                <>{message.text}</>
+              )}
+              <BaseElement $fc $gap="sm">
+                {message.reply_count > 0 && (
+                  <BaseElement
+                    $bg="highlight100"
+                    $p="sm"
+                    $mt="sm"
+                    $br
+                    onClick={() => openThread(message.thread_ts)}
+                  >
+                    {message.reply_count} replies (
+                    {message.reply_users.join(', ')})
+                  </BaseElement>
+                )}
+                <BaseElement $fr $gap="sm">
+                  {message.reactions?.map((reaction: any) => (
+                    <BaseElement
+                      key={reaction.name}
+                      $bg="highlight100"
+                      $p="sm"
+                      $br
+                    >
+                      {reaction.name} ({reaction.count})
+                    </BaseElement>
+                  ))}
+                </BaseElement>
               </BaseElement>
+            </Typography>
+            {message.user && (
+              <Root
+                block={{
+                  id: `slack-user-${message.user || message.bot_id}`,
+                  plugin: 'slack',
+                  type: 'user',
+                  content: {
+                    id: message.user || message.bot_id,
+                  },
+                }}
+              />
             )}
-          </Row>
+          </BaseElement>
         </BaseElement>
       ))}
     </BaseElement>

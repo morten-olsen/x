@@ -11,10 +11,12 @@ import {
 } from '@morten-olsen/x-blocks';
 import { HiOutlineEye } from 'react-icons/hi';
 import { FiEdit3 } from 'react-icons/fi';
+import { VscLayoutSidebarLeftOff } from 'react-icons/vsc';
 
 import styled from 'styled-components';
-import { BaseElement, Row, Tabs, Typography } from '@morten-olsen/x-ui';
+import { BaseElement, Tabs, Typography } from '@morten-olsen/x-ui';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { emitter } from '../events';
 
 type WorkspaceContent = {
   selected?: string;
@@ -95,6 +97,12 @@ const Toolbar = styled(BaseElement)`
   justify-content: flex-end;
 `;
 
+const SidebarButton = styled(BaseElement)`
+  @media screen and (min-width: 801px) {
+    display: none;
+  }
+`;
+
 const Item: React.FC<{ id: BlockRef }> = ({ id }) => {
   const [readOnly, setReadOnly] = useState(false);
   return (
@@ -151,6 +159,15 @@ const Workspace: React.FC = () => {
   return (
     <Tabs value={value.selected} onValueChange={(next) => setSelected(next)}>
       <Tabs.List>
+        <SidebarButton
+          $fc
+          $items="center"
+          $justify="center"
+          $px="md"
+          onClick={() => emitter.emit('sidebar:open')}
+        >
+          <VscLayoutSidebarLeftOff />
+        </SidebarButton>
         {children.map((child, i) => (
           <Tabs.Trigger value={idToString(child)} key={idToString(child)}>
             <Header
