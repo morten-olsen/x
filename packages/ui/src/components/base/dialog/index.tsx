@@ -15,6 +15,8 @@ const Overlay = styled(DialogPrimitives.Overlay)`
 const Portal = styled(DialogPrimitives.Portal)``;
 
 const Content = styled(DialogPrimitives.Content)`
+  z-index: 1000;
+  overflow-y: auto;
   background-color: ${({ theme }) => theme.colors.bg.base100};
   border-radius: 6px;
   box-shadow: hsl(206 22% 7% / 35%) 0px 10px 38px -10px,

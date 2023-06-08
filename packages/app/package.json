@@ -14,6 +14,7 @@
     "@morten-olsen/x-auth-linear": "workspace:^",
     "@morten-olsen/x-auth-slack": "workspace:^",
     "@morten-olsen/x-blocks": "workspace:^",
+    "@morten-olsen/x-db-indexeddb": "workspace:^",
     "@morten-olsen/x-plugin-code-playground": "workspace:^",
     "@morten-olsen/x-plugin-container": "workspace:^",
     "@morten-olsen/x-plugin-github": "workspace:^",

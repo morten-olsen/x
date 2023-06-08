@@ -95,8 +95,6 @@ const ChannelRender = withAuth(() => {
     return <div>Loading...</div>;
   }
 
-  console.log(value);
-
   return (
     <BaseElement>
       <h1>

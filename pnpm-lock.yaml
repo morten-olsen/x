@@ -88,6 +88,9 @@ importers:
       '@morten-olsen/x-blocks':
         specifier: workspace:^
         version: link:../blocks
+      '@morten-olsen/x-db-indexeddb':
+        specifier: workspace:^
+        version: link:../indexeddb
       '@morten-olsen/x-plugin-code-playground':
         specifier: workspace:^
         version: link:../../plugins/code-playground
@@ -200,6 +203,25 @@ importers:
         version: 5.0.4
 
   packages/configs: {}
+
+  packages/indexeddb:
+    dependencies:
+      dexie:
+        specifier: ^3.2.4
+        version: 3.2.4
+      fuse.js:
+        specifier: ^6.6.2
+        version: 6.6.2
+    devDependencies:
+      '@morten-olsen/x-blocks':
+        specifier: workspace:^
+        version: link:../blocks
+      '@morten-olsen/x-config':
+        specifier: workspace:^
+        version: link:../configs
+      typescript:
+        specifier: ^5.0.4
+        version: 5.0.4
 
   packages/ui:
     dependencies:
@@ -6794,6 +6816,11 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /dexie@3.2.4:
+    resolution: {integrity: sha512-VKoTQRSv7+RnffpOJ3Dh6ozknBqzWw/F3iqMdsZg958R0AS8AnY9x9d1lbwENr0gzeGJHXKcGhAMRaqys6SxqA==}
+    engines: {node: '>=6.0'}
+    dev: false
 
   /diffie-hellman@5.0.3:
     resolution: {integrity: sha512-kqag/Nl+f3GwyK25fhUMYj81BUOrZ9IuJsjIcDE5icNM9FJHAVm3VcUDxdLPoQtTuUylWm6ZIknYJwwaPxsUzg==}
